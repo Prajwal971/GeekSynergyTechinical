@@ -27,9 +27,6 @@ export default function LoginScreen({ navigation }) {
       alert("Invalid");
     }
     console.log(parsed);
-    // else {
-    //   navigation.navigate("Home");
-    // }
   };
 
   return (
@@ -62,7 +59,6 @@ export default function LoginScreen({ navigation }) {
         <Text style={styles.loginText}>SIGNUP</Text>
       </TouchableOpacity>
     </View>
-    /* </KeyboardAvoidingView> */
   );
 }
 
@@ -107,7 +103,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    // marginBottom: 10,
   },
   signupBtn: {
     width: "80%",

@@ -6,7 +6,7 @@ import {
   Alert,
   Modal,
   TouchableHighlight,
-  StatusBar,
+  Image,
   ActivityIndicator,
 } from "react-native";
 import WebView from "react-native-webview";
@@ -38,7 +38,6 @@ export default function HomeScreen({ navigation }) {
         .then(async (data) => {
           await setLoading(false);
           await setMoviesData(data);
-          //   console.log(moviesData.result[1]);
         })
         .catch(() => {
           setLoading(false);
@@ -47,70 +46,85 @@ export default function HomeScreen({ navigation }) {
     fetchData();
   }, []);
 
-  return (
-    <View>
-      <View style={styles.body}>
-        <Text></Text>
+  if (loading || moviesData == null) {
+    return (
+      <View style={styles.center}>
+        <Image source={require("../../assets/loadingGif.gif")} />
       </View>
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                Company:Geeksynergy Technologies Pvt Ltd
-              </Text>
-              <Text style={styles.modalText}>
-                Address:Sanjayanagar, Bengaluru-56
-              </Text>
-              <Text style={styles.modalText}>Phone:XXXXXXXXX09</Text>
-              <Text style={styles.modalText}>Email: XXXXXX@gmail.com</Text>
+    );
+  } else {
+    return (
+      <View>
+        <View style={styles.body}>
+          <Text></Text>
+        </View>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>
+                  Company:Geeksynergy Technologies Pvt Ltd
+                </Text>
+                <Text style={styles.modalText}>
+                  Address:Sanjayanagar, Bengaluru-56
+                </Text>
+                <Text style={styles.modalText}>Phone:XXXXXXXXX09</Text>
+                <Text style={styles.modalText}>Email: XXXXXX@gmail.com</Text>
 
-              <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "" }}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <Text style={styles.textStyle}>Close</Text>
-              </TouchableHighlight>
+                <TouchableHighlight
+                  style={{ ...styles.openButton, backgroundColor: "" }}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text style={styles.textStyle}>Close</Text>
+                </TouchableHighlight>
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
 
-        <TouchableHighlight
-          style={styles.openButton}
-          onPress={() => {
-            setModalVisible(true);
-          }}
-        >
-          <Text style={styles.textStyle}>Company Info</Text>
-        </TouchableHighlight>
-        <Text style={styles.hoblist}>.</Text>
-      </View>
+          <TouchableHighlight
+            style={styles.openButton}
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          >
+            <Text style={styles.textStyle}>Company Info</Text>
+          </TouchableHighlight>
+          <Text style={styles.hoblist}>.</Text>
+        </View>
 
-      <View style={styles.hoblist}>
-        <Text
-          style={styles.hoblistFont}
-          onPress={() => navigation.navigate("HomeWeb")}
-        >
-          HobList
-        </Text>
+        <View style={styles.hoblist}>
+          <Text
+            style={styles.hoblistFont}
+            onPress={() => navigation.navigate("HomeWeb")}
+          >
+            HobList
+          </Text>
+        </View>
+        <View>
+          <Movies movie={moviesData} />
+        </View>
       </View>
-      <View>{/* <Movies movie={moviesData} /> */}</View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
+  },
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   info: {
     marginTop: 15,

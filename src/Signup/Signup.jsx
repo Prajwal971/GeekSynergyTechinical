@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   View,
   Text,
+  Picker,
+  Button,
 } from "react-native";
 import { AsyncStorage } from "react-native";
 
@@ -14,7 +16,8 @@ export default function SignupScreen({ navigation }) {
   let [password, setPassword] = useState("");
   let [email, setEmail] = useState("");
   let [phone, setPhone] = useState("");
-  let [profession, setProfession] = useState("");
+  // let [profession, setProfession] = useState("");
+  const [profession, setProfession] = useState("Select a value");
 
   const handleSubmitButton = async () => {
     //performing NULL validation
@@ -35,7 +38,7 @@ export default function SignupScreen({ navigation }) {
       return;
     }
     if (!profession) {
-      alert("Please enter Profession");
+      alert("Please select Profession");
       return;
     }
     //using async storage to store the signed in values
@@ -95,12 +98,16 @@ export default function SignupScreen({ navigation }) {
         />
       </View>
       <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Profession..."
-          placeholderTextColor="#003f5c"
-          onChangeText={(profession) => setProfession(profession)}
-        />
+        <Picker
+          selectedValue={profession}
+          style={{ height: 50, width: 260 }}
+          onValueChange={(itemValue, itemIndex) => setProfession(itemValue)}
+        >
+          <Picker.Item label="Select profession" value="" />
+          <Picker.Item label="Software Developer" value="SD" />
+          <Picker.Item label="Web Developer" value="WD" />
+          <Picker.Item label="Tester" value="Test" />
+        </Picker>
       </View>
 
       <TouchableOpacity style={styles.signupBtn} onPress={handleSubmitButton}>
