@@ -16,7 +16,6 @@ export default function SignupScreen({ navigation }) {
   let [password, setPassword] = useState("");
   let [email, setEmail] = useState("");
   let [phone, setPhone] = useState("");
-  // let [profession, setProfession] = useState("");
   const [profession, setProfession] = useState("Select a value");
 
   const handleSubmitButton = async () => {

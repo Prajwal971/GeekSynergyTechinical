@@ -32,7 +32,13 @@ export default (props) => {
               {row.pageViews} Views|Voted by {row.totalVoted} people |{" "}
               {row.runTime} Mins
             </Text>
-            <Button title="Watch trailer" />
+            <Button
+              title="Watch trailer"
+              onPress={() => {
+                Linking.openURL("https://www.geeksynergy.com/");
+                alert("The selected index is " + index);
+              }}
+            />
             <View>
               <Text></Text>
             </View>
